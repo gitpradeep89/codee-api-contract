@@ -63,8 +63,7 @@ password : string
 * **URL Params**  
   None
 * **Data Params**  
-  ```
-  {
+  ```  {
 	User_name: string,
 	Questionnaire_id: integer,
 	User_ans: [{
@@ -78,8 +77,8 @@ password : string
 		…
 	}]
 
-}```
- 
+	}
+ ```
 
 * **Headers**  
   Content-Type: application/json  
