@@ -42,19 +42,20 @@ password : string
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:** 
 * **Code:** 200  
-  **Content:**  ```{
+  **Content:** 
+  	```{
   	 data: [{
          data_object,
          Data_object,
 	   ……
 	   Questions[{
-Data_object,
-Data_object,
-…
- 
-}
-     ]
-         }
+			Data_object,
+			Data_object,
+			…
+
+			}
+    			]
+         	}
         ]
 }
 
