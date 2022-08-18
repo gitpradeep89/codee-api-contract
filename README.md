@@ -78,7 +78,7 @@ password : string
 	}]
 
 	}
- ```
+ 	```
 
 * **Headers**  
   Content-Type: application/json  
@@ -86,12 +86,10 @@ password : string
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  
-```
-{
+```{
   	 data:  string (success)
 }
-
-```
+ ```
  
 
 **[GET] /api/dashboard**
@@ -107,8 +105,8 @@ password : string
  None
 * **Success Response:**  
 * **Code:** 200  
-  **Content:**  ```
-  {
+  **Content:**  
+  ```{
 	data: [{
 		Onboarded_users: integer,
 		Roommates_pair: integer,
@@ -116,8 +114,8 @@ password : string
 		Tenant_attrition: integer,
 		Incomplete_onboarding: integer
 	}]
-}
-```
+	}
+	```
 
 **[GET] /api/tenant/list**
 ----
@@ -126,14 +124,13 @@ password : string
   None
 * **Data Params**  
 None
-```
-* **Headers**  
+ * **Headers**  
   Content-Type: application/json  
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:** 
 * **Code:** 200  
-  **Content:**  ```
-  {
+  **Content:**  
+  ```  {
  	data: [{
  		user_name: string,
  		join_on: date(d - m - Y),
@@ -146,7 +143,7 @@ None
  		}]
  	}]
  }
-```  
+ ```  
  
 **[GET] /api/match/engine**
 ----
@@ -160,8 +157,8 @@ None
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:** 
   * **Code:** 204  
-  **Content:** ```
-  {
+  **Content:** 
+  ```{
 	data: [{
 		user_name: string,
 		total_match: integer,
@@ -170,8 +167,8 @@ None
 		……,
 
 	}]
-}
-```
+	}
+	```
 **[GET] /api/personality/spectrum**
 ----
   Get a personality spectrum
@@ -184,8 +181,8 @@ None
   Authorization: Bearer `<OAuth Token>`
 * **Success Response:** 
   * **Code:** 204  
-  **Content:** ```
-  {
+  **Content:** 
+  ```{
 	data: [{
 		the_champion: integer,
 		the_healer: integer,
@@ -208,7 +205,6 @@ None
 
 	}]
 }
-
 ```
 **[POST] /api/assign**
 ----
@@ -218,22 +214,20 @@ None
 * **Data Params**  
   None
   * **Data Params**  
-  ```
-  {
+  ``` {
 	User_id: integer,
 	assigned_user_id: integer
-}
-```
+    }
+	```
 * **Headers**  
   Content-Type: application/json  
  * **Success Response:** 
   * **Code:** 204  
-  **Content:** ``` 
-  {
+  **Content:** 
+  ``` {
 	data: string(success)
-}
- 
-```
+      }
+ 	```
 **[POST] /api/manual/match**
 ----
   List of users for manual match
@@ -242,18 +236,16 @@ None
 * **Data Params**  
   None
   * **Data Params**  
-  ```
-  {
+  ``` {
 	User_id:integer,
-}
-
-```
+	} 
+	```
 * **Headers**  
   Content-Type: application/json  
  * **Success Response:** 
   * **Code:** 204  
-  **Content:** ``` 
-  {
+  **Content:** 
+  ```  {
 	data: [{
 			User_id: integer,
 			User_name: string,
@@ -265,9 +257,7 @@ None
 			…
 		}, …
 	]
-}
-
- 
-```
+	} 
+	```
  
 
