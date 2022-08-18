@@ -1,467 +1,262 @@
-#Users
-* User object
-```
+[POST] /api/login
+
+Login user of given credential .
+
+URL Params
+None
+Data Params
 {
-  id: integer
-  username: string
-  email: string
-  created_at: datetime(iso 8601)
-  updated_at: datetime(iso 8601)
+email : string,
+password : string
 }
-```
-**GET /users**
-----
-  Returns all users in the system.
-* **URL Params**  
-  None
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  
-```
+Headers
+Content-Type: application/json 
+Success Response:
+Code: 200
+Content:
+	{
+  	 data: [{
+         data_object,
+         Data_object,
+	   token:string
+	   ……
+	   
+         }
+        ]
+}
+
+
+[GET] /api/questionnaire
+
+Returns a client details and questionnaire for a specific client.
+
+URL Params
+None
+Data Params
+None
+Headers
+Content-Type: application/json
+Authorization:string
+Success Response:
+Code: 200
+Content:
+	{
+  	 data: [{
+         data_object,
+         Data_object,
+	   ……
+	   Questions[{
+Data_object,
+Data_object,
+…
+ 
+}
+     ]
+         }
+        ]
+}
+
+[POST] /api/questionnaire/ans
+
+Save user response of specific questionnaire  
+
+URL Params
+None
+Data Params 
 {
-  users: [
-           {<user_object>},
-           {<user_object>},
-           {<user_object>}
-         ]
+	User_name : string,
+	Questionnaire_id : integer,
+	User_ans : [{ 
+Question_id: integer,
+Answer: integer (1 to 7)
+},
+{ 
+Question_id: integer,
+Answer: integer (1 to 7)
+},
+…
+}] 
+ 
 }
-```
+Headers
+Content-Type: application/json
+Success Response:
+Code: 200
+Content:
+	{
+  	 data:  “success”
+}
 
-**GET /users/:id**
-----
-  Returns the specified user.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** 
-* **Code:** 200  
-  **Content:**  `{ <user_object> }` 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "User doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**GET /users/:id/orders**
-----
-  Returns all Orders associated with the specified user.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  
-```
+
+[GET] /api/dashboard
+
+Get dashboard information like onboard, Roommates Paired, etc.   
+
+URL Params
+None
+Data Params
+None
+Headers
+Content-Type: application/json
+Authorization:string
+Success Response:
+Code: 200
+Content:
+	{
+  	 data:  [{
+Onboarded_users:integer,
+Roommates_pair:integer,
+Last_event_attendence:integer,
+Tenant_attrition:integer,
+Incomplete_onboarding:integer
+}
+]
+}
+
+[GET] /api/tenant/list
+
+Get a Tenant list.   
+
+URL Params
+None
+Data Params
+None
+Headers
+Content-Type: application/json
+Authorization:string
+Success Response:
+Code: 200
+Content:
+	{
+  	 data:  [{
+user_name:string,
+join_on:date(d-m-Y),
+status:string,
+…,
+Compatibility :[{ 
+user_name:string, 
+Compatibility:integer,
+…
+}]
+}
+]
+} 
+
+[GET] /api/match/engine
+
+Get a highest compatible user list, number of user to match on highest score
+
+URL Params
+None
+Data Params
+None
+Headers
+Content-Type: application/json
+Authorization:string
+Success Response:
+Code: 200
+Content:
+	{
+  	 data:  [{
+user_name:string,
+total_match:integer,
+Compatibility:integer,
+match_user_image:string,
+……,
+ 
+}
+]
+}
+
+[GET] /api/personality/spectrum
+
+Get a personality spectrum
+
+URL Params
+None
+Data Params
+None
+Headers
+Content-Type: application/json
+Authorization:string
+Success Response:
+Code: 200
+Content:
+	{
+  	 data:  [{
+the_champion:integer,
+the_healer:integer,
+the_constructor:integer,
+the_instructor:integer,
+the_supporter:integer,
+the_performer:integer,
+the_advisor:integer,
+the_craftsperson:integer,
+night_owl:integer,
+early_riser:integer,
+no_drugs:integer,
+marijuana:integer,
+other_drugs:integer,
+female:integer,
+male:integer,
+Other:integer,
+extrovert:integer,
+……,
+ 
+} 
+]
+}
+
+
+[POST] /api/assign
+
+Assign roommates
+
+URL Params
+None
+Data Params
 {
-  orders: [
-           {<order_object>},
-           {<order_object>},
-           {<order_object>}
-         ]
+User_id:integer,
+assigned_user_id:integer
 }
-```
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "User doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
+Headers
+Content-Type: application/json
+Success Response:
+Code: 200
+Content:
+	{
+  	 data: string(success)
+}
 
-**POST /users**
-----
-  Creates a new User and returns the new object.
-* **URL Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-* **Data Params**  
-```
-  {
-    username: string,
-    email: string
-  }
-```
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  `{ <user_object> }` 
 
-**PATCH /users/:id**
-----
-  Updates fields on the specified user and returns the updated object.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-```
-  {
-  	username: string,
-    email: string
-  }
-```
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** 
-* **Code:** 200  
-  **Content:**  `{ <user_object> }`  
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "User doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
 
-**DELETE /users/:id**
-----
-  Deletes the specified user.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** 
-  * **Code:** 204 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "User doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
+*[POST] /api/manual/match
+List of users for manual match
 
-#Products
-* Product object
-```
+URL Params
+None
+Data Params
 {
-  id: integer
-  name: string
-  cost: float(2)
-  available_quantity: integer
-  created_at: datetime(iso 8601)
-  updated_at: datetime(iso 8601)
+User_id:integer,
 }
-```
-**GET /products**
-----
-  Returns all products in the system.
-* **URL Params**  
-  None
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-* **Success Response:** 
-* **Code:** 200  
-  **Content:**  
-```
-{
-  products: [
-           {<product_object>},
-           {<product_object>},
-           {<product_object>}
-         ]
+Headers
+Content-Type: application/json
+Success Response:
+Code: 200
+Content:
+	{
+  	 data: [{ 
+			User_id:integer,
+			User_name:string,
+			…
+		},
+{ 
+			User_id:integer,
+			User_name:string,
+			…
+},
+…
+]
 }
-``` 
 
-**GET /products/:id**
-----
-  Returns the specified product.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  `{ <product_object> }` 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Product doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**GET /products/:id/orders**
-----
-  Returns all Orders associated with the specified product.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** 
-* **Code:** 200  
-  **Content:**  
-```
-{
-  orders: [
-           {<order_object>},
-           {<order_object>},
-           {<order_object>}
-         ]
-}
-``` 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Product doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**POST /products**
-----
-  Creates a new Product and returns the new object.
-* **URL Params**  
-  None
-* **Data Params**  
-```
-  {
-    name: string
-    cost: float(2)
-    available_quantity: integer
-  }
-```
-* **Headers**  
-  Content-Type: application/json  
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  `{ <product_object> }` 
-
-**PATCH /products/:id**
-----
-  Updates fields on the specified product and returns the updated object.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-```
-  {
-  	name: string
-    cost: float(2)
-    available_quantity: integer
-  }
-```
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** 
-* **Code:** 200  
-  **Content:**  `{ <product_object> }`  
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Product doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**DELETE /products/:id**
-----
-  Deletes the specified product.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**  
-  * **Code:** 204
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Product doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-#Orders
-* Order object
-```
-{
-  id: integer
-  user_id: <user_id>
-  total: float(2)
-  products: [
-              { 
-                product: <product_id>,
-                quantity: integer 
-              },
-              { 
-                product: <product_id>,
-                quantity: integer 
-              },
-              { 
-                product: <product_id>,
-                quantity: integer 
-              },
-            ]
-  created_at: datetime(iso 8601)
-  updated_at: datetime(iso 8601)
-}
-```
-**GET /orders**
-----
-  Returns all users in the system.
-* **URL Params**  
-  None
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-* **Success Response:** 
-* **Code:** 200  
-  **Content:**  
-```
-{
-  orders: [
-           {<order_object>},
-           {<order_object>},
-           {<order_object>}
-         ]
-}
-``` 
-
-**GET /orders/:id**
-----
-  Returns the specified order.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  `{ <order_object> }` 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Order doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**GET /orders/:id/products**
-----
-  Returns all Products associated with the specified order.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  
-```
-{
-  products: [
-           {<product_object>},
-           {<product_object>},
-           {<product_object>}
-         ]
-}
-```
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Order doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**GET /orders/:id/user**
-----
-  Returns all Users associated with the specified order.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** `{ <user_object> }`  
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Order doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**POST /orders**
-----
-  Creates a new Order and returns the new object.
-* **URL Params**  
-  None
-* **Data Params**  
-```
-  {
-  	user_id: <user_id>
-  	product: <product_id>,
-  	quantity: integer 
-  }
-```
-* **Headers**  
-  Content-Type: application/json  
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  `{ <order_object> }` 
-
-**PATCH /orders/:id**
-----
-  Updates fields on the specified order and returns the updated object.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-```
-  {
-  	product: <product_id>,
-  	quantity: integer 
-  }
-```
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:**  
-* **Code:** 200  
-  **Content:**  `{ <order_object> }` 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Order doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
-
-**DELETE /orders/:id**
-----
-  Deletes the specified order.
-* **URL Params**  
-  *Required:* `id=[integer]`
-* **Data Params**  
-  None
-* **Headers**  
-  Content-Type: application/json  
-  Authorization: Bearer `<OAuth Token>`
-* **Success Response:** 
-  * **Code:** 204 
-* **Error Response:**  
-  * **Code:** 404  
-  **Content:** `{ error : "Order doesn't exist" }`  
-  OR  
-  * **Code:** 401  
-  **Content:** `{ error : error : "You are unauthorized to make this request." }`
