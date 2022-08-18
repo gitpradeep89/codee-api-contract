@@ -53,9 +53,9 @@ password : string
 
 		}]
 	}]
-	}
+	}```
 
-``` 
+ 
  
 **[POST] /api/questionnaire/ans**
 ----
@@ -78,8 +78,8 @@ password : string
 		…
 	}]
 
-}
-  ```
+}```
+ 
 
 * **Headers**  
   Content-Type: application/json  
