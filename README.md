@@ -41,7 +41,8 @@ password : string
 * **Success Response:** 
 * **Code:** 200  
   **Content:** 
-  	``` {
+ ``` 
+	{
 	data: [{
 		data_object,
 		Data_object,
@@ -53,7 +54,9 @@ password : string
 
 		}]
 	}]
-	}```
+	}
+ 
+ ```
 
  
  
@@ -63,22 +66,23 @@ password : string
 * **URL Params**  
   None
 * **Data Params**  
-  ```  {
-	User_name: string,
-	Questionnaire_id: integer,
-	User_ans: [{
-			Question_id: integer,
-			Answer: integer(1 to 7)
-		},
-		{
-			Question_id: integer,
-			Answer: integer(1 to 7)
-		},
-		…
-	}]
+```
+	{
+		User_name: string,
+		Questionnaire_id: integer,
+		User_ans: [{
+				Question_id: integer,
+				Answer: integer(1 to 7)
+			},
+			{
+				Question_id: integer,
+				Answer: integer(1 to 7)
+			},
+			…
+		}]
 
 	}
- 	```
+ ```
 
 * **Headers**  
   Content-Type: application/json  
@@ -86,10 +90,12 @@ password : string
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  
-```{
-  	 data:  string (success)
+```
+{
+   data:  string (success)
 }
- ```
+
+```
  
 
 **[GET] /api/dashboard**
@@ -106,16 +112,16 @@ password : string
 * **Success Response:**  
 * **Code:** 200  
   **Content:**  
-  ```{
-	data: [{
-		Onboarded_users: integer,
-		Roommates_pair: integer,
-		Last_event_attendence: integer,
-		Tenant_attrition: integer,
-		Incomplete_onboarding: integer
-	}]
+```	{
+		data: [{
+			Onboarded_users: integer,
+			Roommates_pair: integer,
+			Last_event_attendence: integer,
+			Tenant_attrition: integer,
+			Incomplete_onboarding: integer
+		}]
 	}
-	```
+```
 
 **[GET] /api/tenant/list**
 ----
@@ -130,7 +136,8 @@ None
 * **Success Response:** 
 * **Code:** 200  
   **Content:**  
-  ```  {
+````  
+{
  	data: [{
  		user_name: string,
  		join_on: date(d - m - Y),
@@ -143,7 +150,8 @@ None
  		}]
  	}]
  }
- ```  
+ 
+ ````  
  
 **[GET] /api/match/engine**
 ----
